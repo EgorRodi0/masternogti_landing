@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="hero" class="text-center py-5 bg-light">
+    <h1 class="display-4">Регистрация призывников</h1>
+    <p class="lead">Подайте заявление в военкомат быстро и удобно!</p>
+</section>
+
+<section id="form" class="py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Форма заявления</h2>
+                    <form method="POST" novalidate>
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">ФИО</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" 
+                                   placeholder="Иванов Иван Иванович" required pattern="[А-Яа-яЁё\s]+">
+                        </div>
+                        <div class="mb-3">
+                            <label for="birth_date" class="form-label">Дата рождения</label>
+                            <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passport_data" class="form-label">Паспортные данные</label>
+                            <input type="text" class="form-control" id="passport_data" name="passport_data" 
+                                   placeholder="1234 567890" required pattern="\d{4}\s\d{6}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Адрес</label>
+                            <input type="text" class="form-control" id="address" name="address" 
+                                   placeholder="г. Москва, ул. Ленина, д. 10" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Подать заявление</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
