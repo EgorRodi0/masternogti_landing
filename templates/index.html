@@ -2,8 +2,42 @@
 
 {% block content %}
 <section id="hero" class="text-center py-5 bg-light">
-    <h1 class="display-4">Регистрация призывников</h1>
-    <p class="lead">Подайте заявление в военкомат быстро и удобно!</p>
+    <h1 class="display-4">МастерНогти</h1>
+    <p class="lead">Ваш идеальный маникюр и педикюр в одном месте!</p>
+    <a href="#form" class="btn btn-primary mt-3">Записаться онлайн</a>
+</section>
+
+<section id="services" class="py-5">
+    <h2 class="text-center mb-4">Наши услуги</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Маникюр</h5>
+                    <p class="card-text">Классический, аппаратный или с дизайном.</p>
+                    <p class="card-text"><strong>от 1500 ₽</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Педикюр</h5>
+                    <p class="card-text">Полный уход за стопами и ногтями.</p>
+                    <p class="card-text"><strong>от 2000 ₽</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Комбо</h5>
+                    <p class="card-text">Маникюр + педикюр с индивидуальным дизайном.</p>
+                    <p class="card-text"><strong>от 3000 ₽</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="form" class="py-5">
@@ -11,28 +45,32 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Форма заявления</h2>
+                    <h2 class="card-title text-center mb-4">Записаться на услугу</h2>
                     <form method="POST" novalidate>
                         <div class="mb-3">
-                            <label for="full_name" class="form-label">ФИО</label>
-                            <input type="text" class="form-control" id="full_name" name="full_name" 
-                                   placeholder="Иванов Иван Иванович" required pattern="[А-Яа-яЁё\s]+">
+                            <label for="client_name" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="client_name" name="client_name" 
+                                   placeholder="Анна Иванова" required pattern="[А-Яа-яЁё\s]+">
                         </div>
                         <div class="mb-3">
-                            <label for="birth_date" class="form-label">Дата рождения</label>
-                            <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="text" class="form-control" id="phone" name="phone" 
+                                   placeholder="+79991234567" required pattern="\+7[0-9]{10}">
                         </div>
                         <div class="mb-3">
-                            <label for="passport_data" class="form-label">Паспортные данные</label>
-                            <input type="text" class="form-control" id="passport_data" name="passport_data" 
-                                   placeholder="1234 567890" required pattern="\d{4}\s\d{6}">
+                            <label for="service" class="form-label">Услуга</label>
+                            <select class="form-select" id="service" name="service" required>
+                                <option value="" disabled selected>Выберите услугу</option>
+                                <option value="Маникюр">Маникюр</option>
+                                <option value="Педикюр">Педикюр</option>
+                                <option value="Комбо">Комбо</option>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Адрес</label>
-                            <input type="text" class="form-control" id="address" name="address" 
-                                   placeholder="г. Москва, ул. Ленина, д. 10" required>
+                            <label for="appointment_date" class="form-label">Дата и время</label>
+                            <input type="datetime-local" class="form-control" id="appointment_date" name="appointment_date" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Подать заявление</button>
+                        <button type="submit" class="btn btn-primary w-100">Записаться</button>
                     </form>
                 </div>
             </div>
