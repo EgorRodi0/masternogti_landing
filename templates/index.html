@@ -1,50 +1,116 @@
 {% extends "base.html" %}
-
 {% block content %}
-<section id="hero" class="text-center py-5">
-    <div class="hero-content">
+<section id="hero" class="site-blocks-cover overlay">
+    <div class="hero-content animate" data-animation="fadeInUp">
         <h1 class="display-4">МастерНогти</h1>
         <p class="lead">Ваш идеальный маникюр и педикюр в одном месте!</p>
         <a href="#form" class="btn btn-primary mt-3">Записаться онлайн</a>
     </div>
+    <div class="mouse">
+        <a href="#services">
+            <div class="mouse-icon">
+                <span class="mouse-wheel"></span>
+            </div>
+        </a>
+    </div>
 </section>
-
 <section id="services" class="py-5">
-    <h2 class="text-center mb-4">Наши услуги</h2>
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Маникюр</h5>
-                    <p class="card-text">Классический, аппаратный или с дизайном.</p>
-                    <p class="card-text"><strong>от 1500 ₽</strong></p>
+    <div class="services-content">
+        <h2 class="text-center mb-4 animate" data-animation="fadeInUp">Наши услуги</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center animate" data-animation="fadeInUp" data-delay="0.2s">
+                    <div class="card-body">
+                        <div class="unit-4-icon mb-3">
+                            <span class="fas fa-hand-sparkles"></span>
+                        </div>
+                        <h5 class="card-title">Маникюр</h5>
+                        <p class="card-text">Классический, аппаратный или с дизайном.</p>
+                        <p class="card-text"><strong>от 1500 ₽</strong></p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Педикюр</h5>
-                    <p class="card-text">Полный уход за стопами и ногтями.</p>
-                    <p class="card-text"><strong>от 2000 ₽</strong></p>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center animate" data-animation="fadeInUp" data-delay="0.4s">
+                    <div class="card-body">
+                        <div class="unit-4-icon mb-3">
+                            <span class="fas fa-spa"></span>
+                        </div>
+                        <h5 class="card-title">Педикюр</h5>
+                        <p class="card-text">Полный уход за стопами и ногтями.</p>
+                        <p class="card-text"><strong>от 2000 ₽</strong></p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Комбо</h5>
-                    <p class="card-text">Маникюр + педикюр с индивидуальным дизайном.</p>
-                    <p class="card-text"><strong>от 3000 ₽</strong></p>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center animate" data-animation="fadeInUp" data-delay="0.6s">
+                    <div class="card-body">
+                        <div class="unit-4-icon mb-3">
+                            <span class="fas fa-heart"></span>
+                        </div>
+                        <h5 class="card-title">Комбо</h5>
+                        <p class="card-text">Маникюр + педикюр с индивидуальным дизайном.</p>
+                        <p class="card-text"><strong>от 3000 ₽</strong></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
+<section id="gallery" class="py-5 site-section">
+    <div class="container">
+        <h2 class="text-center mb-4 animate" data-animation="fadeInUp">Примеры наших работ</h2>
+        <div class="row portfolio animate" data-animation="fadeInUp">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="{{ url_for('static', filename='img/gallery/nail1.webp') }}" class="work-box">
+                    <img src="{{ url_for('static', filename='img/gallery/nail1.webp') }}" alt="Маникюр 1" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="{{ url_for('static', filename='img/gallery/nail2.webp') }}" class="work-box">
+                    <img src="{{ url_for('static', filename='img/gallery/nail2.webp') }}" alt="Маникюр 2" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a href="{{ url_for('static', filename='img/gallery/nail3.webp') }}" class="work-box">
+                    <img src="{{ url_for('static', filename='img/gallery/nail3.webp') }}" alt="Маникюр 3" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="testimonials" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4 animate" data-animation="fadeInUp">Отзывы наших клиентов</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="testimonial animate" data-animation="fadeInUp" data-delay="0.2s">
+                    <blockquote>
+                        "Лучший маникюр в Москве! Всегда ухожу с улыбкой и идеальными ногтями."
+                    </blockquote>
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/testimonial1.webp') }}" alt="Клиент 1">
+                        <figcaption>Анна, 28 лет</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="testimonial animate" data-animation="fadeInUp" data-delay="0.4s">
+                    <blockquote>
+                        "Очень уютный салон, мастера – профессионалы своего дела!"
+                    </blockquote>
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/testimonial2.webp') }}" alt="Клиент 2">
+                        <figcaption>Мария, 35 лет</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section id="form" class="py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+    <div class="row justify-content-center animate" data-animation="fadeIn">
+        <div class="col-md-10 col-lg-8">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Записаться на услугу</h2>
@@ -70,7 +136,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="appointment_date" class="form-label">Дата и время</label>
-                            <input type="datetime-local" class="form-control" id="appointment_date" name="appointment_date" required>
+                            <input type="datetime-local" class="form-control" id="appointment_date" name="appointment_date" 
+                                   min="2025-05-02T10:00" max="2026-12-31T20:00" step="900" required 
+                                   aria-describedby="appointment_date_help">
+                            <div id="appointment_date_help" class="form-text">Выберите дату и время с 10:00 до 20:00</div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Записаться</button>
                     </form>

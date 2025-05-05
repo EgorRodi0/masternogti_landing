@@ -5,6 +5,7 @@ import logging
 import re
 import os
 import sys
+from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -51,8 +52,8 @@ def validate_phone(phone):
     return bool(re.match(r'^\+7[0-9]{10}$', phone))
 
 def validate_datetime(datetime_str):
-    """Validate datetime format (YYYY-MM-DD HH:MM)."""
-    return bool(re.match(r'^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}$', datetime_str))
+    """Validate datetime format (YYYY-MM-DDTHH:MM)."""
+    return bool(re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$', datetime_str))
 
 def sanitize_input(data):
     """Sanitize input data."""
@@ -75,10 +76,17 @@ def index():
         elif not validate_phone(phone):
             flash("Некорректный формат телефона (+7XXXXXXXXXX)!", "danger")
         elif not validate_datetime(appointment_date):
-            flash("Некорректный формат даты и времени (ГГГГ-ММ-ДД ЧЧ:ММ)!", "danger")
+            flash("Некорректный формат даты и времени (ГГГГ-ММ-ДД ЧЧ:ММ, например, 2025-05-01 10:00)!", "danger")
         elif service not in ['Маникюр', 'Педикюр', 'Комбо']:
             flash("Выберите корректную услугу!", "danger")
         else:
+            # Преобразуем формат даты из YYYY-MM-DDTHH:MM в YYYY-MM-DD HH:MM:SS для PostgreSQL
+            try:
+                formatted_date = datetime.strptime(appointment_date, '%Y-%m-%dT%H:%M').strftime('%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                flash("Ошибка в формате даты и времени!", "danger")
+                return render_template("index.html")
+
             conn = get_db_connection()
             if conn:
                 try:
@@ -86,7 +94,7 @@ def index():
                         cur.execute(
                             """INSERT INTO appointments (client_name, phone, service, appointment_date)
                                VALUES (%s, %s, %s, %s) RETURNING id;""",
-                            (client_name, phone, service, appointment_date)
+                            (client_name, phone, service, formatted_date)
                         )
                         appointment_id = cur.fetchone()[0]
                         conn.commit()
