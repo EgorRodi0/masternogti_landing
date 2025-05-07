@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Онлайн-запись на маникюр и педикюр в салоне МастерНогти">
+    <meta name="keywords" content="маникюр, педикюр, салон красоты, МастерНогти, Москва">
+    <meta property="og:title" content="МастерНогти - Салон красоты">
+    <title>Салон красоты МастерНогти</title>
+    <!-- Фавикон -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Подключение Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Montserrat:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="navbar-container">
+            <a class="navbar-brand" href="/">
+                <img id="logo" src="{{ url_for('static', filename='img/logo.webp') }}" alt="МастерНогти" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Примеры работ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Отзывы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#form">Записаться</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div id="logo-paths" 
+             data-default-logo="{{ url_for('static', filename='img/logo.webp') }}" 
+             data-alt-logo="{{ url_for('static', filename='img/logo-alt.webp') }}" 
+             style="display: none;"></div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-3 text-center">
+                    <h5>Контакты</h5>
+                    <p><a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                    <p><a href="tel:+79997654321">+7 (999) 765-43-21</a></p>
+                    <p><a href="mailto:info@masternogti.ru">info@masternogti.ru</a></p>
+                </div>
+                <div class="col-md-4 mb-3 text-center">
+                    <h5>Услуги</h5>
+                    <p><a href="#services">Маникюр</a></p>
+                    <p><a href="#services">Педикюр</a></p>
+                    <p><a href="#services">Комбо</a></p>
+                </div>
+                <div class="col-md-4 mb-3 text-center">
+                    <h5>Соцсети</h5>
+                    <ul class="ul-social-circle">
+                        <li><a href="https://instagram.com/masternogti" target="_blank"><span class="fab fa-instagram"></span></a></li>
+                        <li><a href="https://vk.com/masternogti" target="_blank"><span class="fab fa-vk"></span></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3 text-center">
+                    <h5>Адрес</h5>
+                    <p>г. Москва, ул. Красоты, д. 10, офис 5</p>
+                    <p>Работаем с 10:00 до 20:00</p>
+                </div>
+            </div>
+            <p class="mt-3 text-center">© 2025 МастерНогти. Все права защищены.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Подключение Fancybox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

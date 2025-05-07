@@ -10,21 +10,36 @@ document.addEventListener('DOMContentLoaded', () => {
         form.insertBefore(errorContainer, form.firstChild);
 
         form.addEventListener('submit', (e) => {
-            const name = form.querySelector('#client_name').value;
+            const name = form.querySelector('#name').value;
             const phone = form.querySelector('#phone').value;
+            const service = form.querySelector('#service').value;
             const date = form.querySelector('#appointment_date').value;
+            const consent = form.querySelector('#consent').checked;
             let errors = [];
 
-            if (!/^[А-Яа-яЁё\s]+$/.test(name)) {
+            if (!name || !/^[А-Яа-яЁё\s]+$/.test(name)) {
                 errors.push('Имя должно содержать только кириллицу!');
             }
-            if (!/^\+7[0-9]{10}$/.test(phone)) {
+            if (!phone || !/^\+7[0-9]{10}$/.test(phone)) {
                 errors.push('Телефон должен быть в формате +79991234567!');
             }
-            if (!date) {
-                errors.push('Укажите дату и время!');
-            } else if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date)) {
+            if (!service || !['manicure', 'pedicure', 'combo'].includes(service)) {
+                errors.push('Выберите корректную услугу!');
+            }
+            if (!date || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date)) {
                 errors.push('Некорректный формат даты и времени (ГГГГ-ММ-ДД ЧЧ:ММ)!');
+            } else {
+                const selectedDate = new Date(date);
+                const hours = selectedDate.getHours();
+                if (hours < 10 || hours >= 20) {
+                    errors.push('Запись возможна только с 10:00 до 20:00!');
+                }
+                if (selectedDate < new Date()) {
+                    errors.push('Дата записи не может быть в прошлом!');
+                }
+            }
+            if (!consent) {
+                errors.push('Необходимо согласиться на обработку персональных данных!');
             }
 
             if (errors.length > 0) {
@@ -76,6 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animateElements.forEach(element => observer.observe(element));
 
+    // Инициализация Fancybox
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        loop: true,
+        buttons: [
+            "zoom",
+            "slideShow",
+            "fullScreen",
+            "thumbs",
+            "close"
+        ],
+        animationEffect: "zoom",
+        transitionEffect: "slide"
+    });
+
     // Прозрачность хедера и смена логотипа при скролле
     const navbar = document.querySelector('.navbar');
     if (!navbar) {
@@ -84,11 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     navbar.classList.remove('scrolled');
 
-    // Получаем пути к логотипам из атрибутов data-*
     const logoPaths = document.querySelector('#logo-paths');
     const logo = document.querySelector('#logo');
 
-    // Проверка наличия элементов
     if (!logoPaths || !logo) {
         console.error('Не найдены элементы:', { logoPaths, logo });
         return;
@@ -97,28 +124,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultLogo = logoPaths.getAttribute('data-default-logo');
     const altLogo = logoPaths.getAttribute('data-alt-logo');
 
-    // Проверка путей
     if (!defaultLogo || !altLogo) {
         console.error('Пути к логотипам не найдены:', { defaultLogo, altLogo });
         return;
     }
 
-    console.log('Пути к логотипам:', { defaultLogo, altLogo });
-
-    // Функция для смены логотипа с предотвращением кэширования
     const setLogo = (logoElement, src) => {
         const timestamp = new Date().getTime();
-        logoElement.src = `${src}?t=${timestamp}`;
+        logoElement.style.opacity = 0;
+        setTimeout(() => {
+            logoElement.src = `${src}?t=${timestamp}`;
+            logoElement.style.opacity = 1;
+        }, 300);
     };
 
     window.addEventListener('scroll', () => {
-        // Прозрачность хедера и смена логотипа
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
-            setLogo(logo, altLogo); // Меняем логотип на альтернативный
+            setLogo(logo, altLogo);
         } else {
             navbar.classList.remove('scrolled');
-            setLogo(logo, defaultLogo); // Возвращаем основной логотип
+            setLogo(logo, defaultLogo);
         }
     });
+
+    // Закрытие меню при клике на ссылку
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse.classList.contains('show')) {
+                document.querySelector('.navbar-toggler').click();
+            }
+        });
+    });
+
+    // Закрытие меню при клике на кнопку закрытия
+    const closeMenu = document.querySelector('.close-menu');
+    if (closeMenu) {
+        closeMenu.addEventListener('click', () => {
+            document.querySelector('.navbar-toggler').click();
+        });
+    } else {
+        console.error('Кнопка закрытия меню (.close-menu) не найдена');
+    }
 });

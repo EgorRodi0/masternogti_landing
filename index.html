@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div id="hero" class="site-blocks-cover overlay animate" data-animation="fadeInUp">
+    <div class="hero-content">
+        <h1>Салон красоты МастерНогти</h1>
+        <p class="lead">Ваш идеальный маникюр и педикюр в одном месте!</p>
+        <p><a href="#form" class="btn btn-primary">Записаться</a></p>
+    </div>
+    <a href="#services" class="mouse">
+        <span class="mouse-icon">
+            <span class="mouse-wheel"></span>
+        </span>
+    </a>
+</div>
+
+<section id="services" class="site-section animate" data-animation="fadeInUp">
+    <div class="services-content">
+        <h2>Наши услуги</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card text-center animate" data-animation="zoomIn">
+                    <div class="card-body">
+                        <div class="unit-4-icon mb-3">
+                            <span class="fas fa-hand-sparkles"></span>
+                        </div>
+                        <h3 class="card-title">Маникюр</h3>
+                        <p class="card-text">Классический, аппаратный, комбинированный маникюр с покрытием и дизайном.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center animate" data-animation="zoomIn" data-delay="0.2s">
+                    <div class="card-body">
+                        <div class="unit-4-icon mb-3">
+                            <span class="fas fa-shoe-prints"></span>
+                        </div>
+                        <h3 class="card-title">Педикюр</h3>
+                        <p class="card-text">Уход за стопами и ногтями с покрытием на ваш выбор.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center animate" data-animation="zoomIn" data-delay="0.4s">
+                    <div class="card-body">
+                        <div class="unit-4-icon mb-3">
+                            <span class="fas fa-spa"></span>
+                        </div>
+                        <h3 class="card-title">Комбо</h3>
+                        <p class="card-text">Маникюр и педикюр в одном сеансе со скидкой.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section" id="gallery">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h2 class="animate" data-animation="fadeInUp">Примеры работ</h2>
+            </div>
+        </div>
+        <div id="posts" class="row">
+            {% for i in range(1, 17) %}
+            <div class="item col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4 animate" data-animation="zoomIn" data-delay="{{ (i-1)*0.1 }}s">
+                <a href="{{ url_for('static', filename='img/work_' + i|string + '.jpg') }}" class="item-wrap" data-fancybox="gallery">
+                    <span class="fas fa-search"></span>
+                    <img class="img-fluid" src="{{ url_for('static', filename='img/work_' + i|string + '.jpg') }}" alt="Пример работы {{ i }}">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="testimonials" class="site-section animate" data-animation="fadeInUp">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h2>Отзывы</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="testimonial animate" data-animation="fadeInUp">
+                    <blockquote>
+                        <p>Прекрасный салон! Мастера очень внимательные, сделали маникюр на высшем уровне.</p>
+                    </blockquote>
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/client_1.jpg') }}" alt="Клиент 1">
+                        <figcaption>Анна, 28 лет</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="testimonial animate" data-animation="fadeInUp" data-delay="0.2s">
+                    <blockquote>
+                        <p>Педикюр сделали быстро и аккуратно, я в восторге! Обязательно вернусь.</p>
+                    </blockquote>
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/client_2.jpg') }}" alt="Клиент 2">
+                        <figcaption>Екатерина, 34 года</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="testimonial animate" data-animation="fadeInUp" data-delay="0.4s">
+                    <blockquote>
+                        <p>Комбо маникюр + педикюр — это просто спасение! Спасибо за уютную атмосферу.</p>
+                    </blockquote>
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/client_3.jpg') }}" alt="Клиент 3">
+                        <figcaption>Мария, 45 лет</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="form" class="site-section animate" data-animation="fadeInUp">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h2>Записаться на сеанс</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <form action="https://getform.io/f/avrwkzoa" method="POST">
+                    <!-- Поле для имени -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Ваше имя</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <!-- Поле для телефона -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Телефон</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+79991234567" required>
+                    </div>
+                    <!-- Выбор услуги -->
+                    <div class="mb-3">
+                        <label for="service" class="form-label">Выберите услугу</label>
+                        <select class="form-select" id="service" name="service" required>
+                            <option value="" disabled selected>Выберите услугу</option>
+                            <option value="manicure">Маникюр</option>
+                            <option value="pedicure">Педикюр</option>
+                            <option value="combo">Комбо (Маникюр + Педикюр)</option>
+                        </select>
+                    </div>
+                    <!-- Дата и время -->
+                    <div class="mb-3">
+                        <label for="appointment_date" class="form-label">Дата и время</label>
+                        <input type="datetime-local" class="form-control" id="appointment_date" name="appointment_date" required>
+                        <div class="form-text">Работаем с 10:00 до 20:00</div>
+                    </div>
+                    <!-- Чекбокс для согласия на обработку данных -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="consent" name="consent" value="yes" checked required>
+                        <label class="form-check-label" for="consent">Согласен на обработку персональных данных</label>
+                        <input type="hidden" name="consent" value="no">
+                    </div>
+                    <!-- Honeypot для защиты от спама -->
+                    <input type="hidden" name="_gotcha" style="display:none !important">
+                    <!-- Кнопка отправки -->
+                    <button type="submit" class="btn btn-primary">Записаться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
