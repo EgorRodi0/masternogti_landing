@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5 {
     z-index: 1000;
     background: transparent !important;
     padding: 0;
-    min-height: 70px; /* Увеличиваем высоту хедера из-за большего логотипа */
+    min-height: 70px;
     transition: background-color 0.3s ease;
 }
 
@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5 {
     padding: 10px 15px;
     display: flex;
     align-items: center;
-    justify-content: center; /* Центрируем содержимое хедера */
+    justify-content: center;
 }
 
 .navbar-brand {
@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5 {
 
 .navbar-brand img {
     width: auto;
-    height: 60px; /* Увеличиваем логотип для читаемости текста */
+    height: 60px;
     object-fit: contain;
     border-radius: 5px;
     background-color: transparent;
@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 1200px) {
     .navbar-brand img {
-        height: 50px; /* Уменьшаем для меньших экранов */
+        height: 50px;
     }
 }
 
@@ -131,24 +131,24 @@ h1, h2, h3, h4, h5 {
         min-height: 60px;
     }
     .navbar-brand img {
-        height: 40px; /* Уменьшаем для мобильных */
+        height: 40px;
     }
     .navbar-collapse {
         position: absolute;
         top: 100%;
-        left: 50%; /* Центрируем меню */
-        transform: translateX(-50%) translateY(-20px); /* Центрирование и начальная анимация */
-        width: 250px; /* Фиксированная ширина для прямоугольника */
+        left: 50%;
+        transform: translateX(-50%) translateY(-20px);
+        width: 250px;
         background-color: #067542;
         z-index: 1000;
         padding: 20px;
-        border-radius: 15px; /* Скругленные углы со всех сторон */
+        border-radius: 15px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .navbar-collapse.show {
-        transform: translateX(-50%) translateY(0); /* Появление с центрированием */
+        transform: translateX(-50%) translateY(0);
         opacity: 1;
     }
     .navbar-nav {
@@ -192,7 +192,7 @@ h1, h2, h3, h4, h5 {
     min-height: 100vh;
     width: 100%;
     padding: 3vh 0;
-    padding-top: 90px; /* Увеличиваем отступ из-за большего логотипа */
+    padding-top: 90px;
     top: 0;
 }
 
