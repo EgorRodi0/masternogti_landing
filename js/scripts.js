@@ -1,4 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Добавление класса .scrolled для хедера при скролле
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Предотвращение скролла при клике на collapse-ссылки
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+        });
+    });
+
+    // Управление кастомным выпадающим списком
+    const timeToggle = document.getElementById('time-toggle');
+    const timeMenu = document.getElementById('time-menu');
+    if (timeToggle && timeMenu) {
+        timeToggle.addEventListener('click', () => {
+            timeMenu.classList.toggle('show');
+        });
+
+        // Закрытие меню при клике вне
+        document.addEventListener('click', (e) => {
+            if (!timeToggle.contains(e.target) && !timeMenu.contains(e.target)) {
+                timeMenu.classList.remove('show');
+            }
+        });
+
+        // Обновление текста в toggle при выборе чекбоксов
+        const checkboxes = timeMenu.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const selectedTimes = Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+                timeToggle.textContent = selectedTimes.length > 0 
+                    ? selectedTimes.join(', ') 
+                    : 'Выберите время';
+            });
+        });
+    }
+
     // Валидация формы с кастомными сообщениями
     const form = document.querySelector('form');
     if (form) {
@@ -14,32 +60,54 @@ document.addEventListener('DOMContentLoaded', () => {
             const phone = form.querySelector('#phone').value;
             const service = form.querySelector('#service').value;
             const date = form.querySelector('#appointment_date').value;
+            const timeCheckboxes = form.querySelectorAll('input[name="appointment_time[]"]:checked');
+            const time = Array.from(timeCheckboxes).map(cb => cb.value);
             const consent = form.querySelector('#consent').checked;
             let errors = [];
 
             if (!name || !/^[А-Яа-яЁё\s]+$/.test(name)) {
                 errors.push('Имя должно содержать только кириллицу!');
+                form.querySelector('#name').classList.add('is-invalid');
+            } else {
+                form.querySelector('#name').classList.remove('is-invalid');
             }
             if (!phone || !/^\+7[0-9]{10}$/.test(phone)) {
                 errors.push('Телефон должен быть в формате +79991234567!');
+                form.querySelector('#phone').classList.add('is-invalid');
+            } else {
+                form.querySelector('#phone').classList.remove('is-invalid');
             }
             if (!service || !['manicure', 'pedicure', 'combo'].includes(service)) {
                 errors.push('Выберите корректную услугу!');
+                form.querySelector('#service').classList.add('is-invalid');
+            } else {
+                form.querySelector('#service').classList.remove('is-invalid');
             }
-            if (!date || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date)) {
-                errors.push('Некорректный формат даты и времени (ГГГГ-ММ-ДД ЧЧ:ММ)!');
+            if (!date) {
+                errors.push('Выберите дату!');
+                form.querySelector('#appointment_date').classList.add('is-invalid');
             } else {
                 const selectedDate = new Date(date);
-                const hours = selectedDate.getHours();
-                if (hours < 10 || hours >= 20) {
-                    errors.push('Запись возможна только с 10:00 до 20:00!');
-                }
-                if (selectedDate < new Date()) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selectedDate < today) {
                     errors.push('Дата записи не может быть в прошлом!');
+                    form.querySelector('#appointment_date').classList.add('is-invalid');
+                } else {
+                    form.querySelector('#appointment_date').classList.remove('is-invalid');
                 }
+            }
+            if (time.length === 0) {
+                errors.push('Выберите хотя бы один временной интервал!');
+                form.querySelector('.custom-dropdown').classList.add('is-invalid');
+            } else {
+                form.querySelector('.custom-dropdown').classList.remove('is-invalid');
             }
             if (!consent) {
                 errors.push('Необходимо согласиться на обработку персональных данных!');
+                form.querySelector('#consent').classList.add('is-invalid');
+            } else {
+                form.querySelector('#consent').classList.remove('is-invalid');
             }
 
             if (errors.length > 0) {
@@ -54,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.querySelectorAll('input, select').forEach(input => {
             input.addEventListener('input', () => {
                 errorContainer.style.display = 'none';
+                input.classList.remove('is-invalid');
             });
         });
     }
@@ -103,49 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         animationEffect: "zoom",
         transitionEffect: "slide"
-    });
-
-    // Прозрачность хедера и смена логотипа при скролле
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) {
-        console.error('Navbar не найден');
-        return;
-    }
-    navbar.classList.remove('scrolled');
-
-    const logoPaths = document.querySelector('#logo-paths');
-    const logo = document.querySelector('#logo');
-
-    if (!logoPaths || !logo) {
-        console.error('Не найдены элементы:', { logoPaths, logo });
-        return;
-    }
-
-    const defaultLogo = logoPaths.getAttribute('data-default-logo');
-    const altLogo = logoPaths.getAttribute('data-alt-logo');
-
-    if (!defaultLogo || !altLogo) {
-        console.error('Пути к логотипам не найдены:', { defaultLogo, altLogo });
-        return;
-    }
-
-    const setLogo = (logoElement, src) => {
-        const timestamp = new Date().getTime();
-        logoElement.style.opacity = 0;
-        setTimeout(() => {
-            logoElement.src = `${src}?t=${timestamp}`;
-            logoElement.style.opacity = 1;
-        }, 300);
-    };
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-            setLogo(logo, altLogo);
-        } else {
-            navbar.classList.remove('scrolled');
-            setLogo(logo, defaultLogo);
-        }
     });
 
     // Закрытие меню при клике на ссылку

@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5 {
 
 .navbar-brand img {
     width: auto;
-    height: 60px;
+    height: 80px;
     object-fit: contain;
     border-radius: 5px;
     background-color: transparent;
@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .navbar.scrolled .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 .navbar-collapse {
@@ -102,8 +102,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .navbar.scrolled .navbar-nav .nav-link {
-    color: #333333;
-    text-shadow: none;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-nav .nav-link:hover {
@@ -116,13 +116,13 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 1200px) {
     .navbar-brand img {
-        height: 50px;
+        height: 70px;
     }
 }
 
 @media (max-width: 992px) {
     .navbar-brand img {
-        height: 45px;
+        height: 60px;
     }
 }
 
@@ -131,7 +131,7 @@ h1, h2, h3, h4, h5 {
         min-height: 60px;
     }
     .navbar-brand img {
-        height: 40px;
+        height: 50px;
     }
     .navbar-collapse {
         position: absolute;
@@ -184,16 +184,15 @@ h1, h2, h3, h4, h5 {
 }
 
 .site-blocks-cover {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
     position: relative;
     min-height: 100vh;
     width: 100%;
     padding: 3vh 0;
     padding-top: 90px;
     top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .site-blocks-cover.overlay:before {
@@ -208,17 +207,22 @@ h1, h2, h3, h4, h5 {
 }
 
 #hero {
-    background-image: url('../img/hero-bg-low.webp');
     background-color: #045630;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
 }
 
-@media (min-resolution: 2x) {
-    #hero {
-        background-image: url('../img/hero-bg.webp');
-    }
+.hero-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vmin;
+    height: 80vmin;
+    background-image: url('../img/hero-bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    border-radius: 10px;
 }
 
 .hero-content {
@@ -228,13 +232,13 @@ h1, h2, h3, h4, h5 {
     padding: 40px;
     background: transparent;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     margin-left: 50px;
 }
 
 #hero h1 {
-    font-size: 4rem;
-    color: #1A985F;
+    font-size: 3.5rem;
+    color: #2ABF7A;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -342,6 +346,12 @@ h1, h2, h3, h4, h5 {
     font-size: 2.5rem;
     color: #045630;
     font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+}
+
+#services p {
+    font-size: 1.1rem;
+    color: #333333;
     margin-bottom: 30px;
 }
 
@@ -370,8 +380,60 @@ h1, h2, h3, h4, h5 {
     color: #067542;
 }
 
+.card-title a {
+    color: #067542;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.card-title a:hover {
+    color: #1A985F;
+}
+
+.price-toggle-icon {
+    margin-left: 10px;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.card-title a[aria-expanded="true"] .price-toggle-icon {
+    transform: rotate(180deg);
+}
+
 .card-text {
     color: #333333;
+}
+
+.price-list {
+    margin-top: 15px;
+    padding: 15px;
+    background: #F8F9FA;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.price-list h5 {
+    font-size: 1.2rem;
+    color: #045630;
+    margin-bottom: 10px;
+}
+
+.price-list ul {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.price-list li {
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.collapse {
+    transition: height 0.3s ease;
 }
 
 #gallery {
@@ -490,15 +552,11 @@ h1, h2, h3, h4, h5 {
     margin: 0 auto;
 }
 
-#form .form-control {
+#form .form-control,
+#form .form-select {
     height: 50px;
     border-radius: 30px;
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.2rem;
-}
-
-#form .form-select {
-    height: 50px;
     font-size: 1.2rem;
 }
 
@@ -510,7 +568,8 @@ h1, h2, h3, h4, h5 {
     font-size: 1rem;
 }
 
-#form .form-control:focus {
+#form .form-control:focus,
+#form .form-select:focus {
     border-color: #067542;
     box-shadow: none !important;
 }
@@ -525,6 +584,83 @@ h1, h2, h3, h4, h5 {
 
 #form .btn-primary:hover {
     background: linear-gradient(90deg, #1A985F, #067542);
+}
+
+/* Стили для кастомного выпадающего списка с чекбоксами */
+.custom-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    height: 50px;
+    border: 1px solid #ced4da;
+    border-radius: 30px;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-toggle::after {
+    content: '\f078'; /* Font Awesome chevron-down */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #333;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 10px;
+    font-size: 1.1rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#form .form-control.is-invalid,
+#form .custom-dropdown.is-invalid .dropdown-toggle {
+    border-color: #dc3545;
+}
+
+#form .invalid-feedback {
+    display: none;
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+#form .is-invalid ~ .invalid-feedback {
+    display: block;
 }
 
 .footer {
@@ -638,6 +774,7 @@ h1, h2, h3, h4, h5 {
     #hero .hero-content {
         margin-left: 15px;
         padding: 20px;
+        max-width: 100%;
     }
     #hero .btn-primary {
         font-size: 1rem;
@@ -662,8 +799,12 @@ h1, h2, h3, h4, h5 {
         height: 45px;
         font-size: 1rem;
     }
-    #form .form-label {
+    #form .dropdown-toggle {
+        height: 45px;
         font-size: 1rem;
+    }
+    #form .dropdown-menu {
+        max-height: 150px;
     }
     #form .btn-primary {
         font-size: 1.1rem;
@@ -687,6 +828,12 @@ h1, h2, h3, h4, h5 {
         line-height: 35px;
         font-size: 16px;
     }
+    .price-list h5 {
+        font-size: 1rem;
+    }
+    .price-list li {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -697,7 +844,7 @@ h1, h2, h3, h4, h5 {
         padding-top: 60px;
     }
     #hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
     #hero .lead {
         font-size: 0.9rem;
